@@ -3,413 +3,624 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>College Name - Excellence in Education</title>
+<title>College Website - Animated & Responsive</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-    /* Global Styles */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     :root {
         --primary: #1a365d;
         --secondary: #e9b949;
         --accent: #2b6cb0;
         --light: #f8f9fa;
         --dark: #2d3748;
-        --success: #38a169;
     }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-
-    body { color: #333; line-height: 1.6; background-color: #f5f7f9; }
+    html { scroll-behavior: smooth; }
+    body { color: #333; line-height: 1.6; background-color: #f5f7f9; padding-top: 100px; }
 
     .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
 
+    /* ===== Hero Slider ===== */
+    .hero-slider {
+        position: relative;
+        width: 100%;
+        height: 80vh;
+        overflow: hidden;
+        margin-top: 100px;
+    }
+    
+    .slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 1s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .slide.active {
+        opacity: 1;
+    }
+    
+    .slide-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: white;
+        padding: 0 20px;
+        max-width: 800px;
+    }
+    
+    .slide-content h2 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    }
+    
+    .slide-content p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    }
+    
     .btn {
         display: inline-block;
-        padding: 12px 24px;
-        background-color: var(--primary);
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        font-weight: 600;
-    }
-
-    .btn:hover {
-        background-color: var(--accent);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    .btn-secondary {
-        background-color: var(--secondary);
-        color: var(--dark);
-    }
-
-    .section { padding: 80px 0; }
-
-    .section-title {
-        text-align: center;
-        margin-bottom: 50px;
-        color: var(--primary);
-        position: relative;
-    }
-
-    .section-title:after {
-        content: '';
-        display: block;
-        width: 80px;
-        height: 4px;
         background: var(--secondary);
-        margin: 20px auto;
-        border-radius: 2px;
-    }
-
-    /* Header */
-    header {
-        background-color: white;
         color: var(--dark);
-        padding: 15px 0;
-        position: sticky;
+        padding: 12px 30px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn:hover {
+        background: #d4a63a;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .slide img {
+        position: absolute;
         top: 0;
-        z-index: 100;
-        box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
     }
-
-    .header-top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.1); font-size: 0.95rem; }
-    .contact-info { display: flex; gap: 25px; }
-    .contact-info a { color: var(--dark); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.3s ease; }
-    .contact-info a:hover { color: var(--primary); }
-    .social-links { display: flex; gap: 18px; }
-    .social-links a { color: var(--primary); font-size: 1.1rem; transition: color 0.3s ease; }
-    .social-links a:hover { color: var(--accent); }
-
-    .header-main { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; position: relative; }
-    .logo { display: flex; align-items: center; gap: 15px; }
-    .logo img { height: 70px; }
-    .logo-text { display: flex; flex-direction: column; }
-    .logo-text h1 { font-size: 1.8rem; line-height: 1.2; color: var(--primary); font-weight: 700; }
-    .logo-text span { font-size: 0.95rem; color: #666; }
-
-    nav ul { display: flex; list-style: none; gap: 30px; }
-    nav a { color: var(--dark); text-decoration: none; font-weight: 600; position: relative; padding: 8px 0; font-size: 1.05rem; }
-    nav a:after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 3px; background: var(--primary); transition: width 0.3s ease; }
-    nav a:hover:after { width: 100%; }
-
-    .mobile-menu-btn { display: none; background: none; border: none; color: var(--primary); font-size: 1.8rem; cursor: pointer; }
-
-    /* Mobile menu animation */
-    .nav-menu { display: none; flex-direction: column; transition: max-height 0.4s ease, opacity 0.4s ease; overflow: hidden; max-height: 0; opacity: 0; }
-    .nav-menu.active { display: flex; max-height: 500px; opacity: 1; }
-
-    /* Hero */
-    .hero {
-        background: linear-gradient(rgba(26,54,93,0.85), rgba(26,54,93,0.85)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
-        background-size: cover;
-        background-position: center;
+    
+    .slide video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+    }
+    
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.4);
+        z-index: 1;
+    }
+    
+    .slider-controls {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        z-index: 3;
+    }
+    
+    .slider-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.5);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .slider-dot.active {
+        background: white;
+        transform: scale(1.2);
+    }
+    
+    .slider-arrows {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 3;
+        transform: translateY(-50%);
+    }
+    
+    .arrow {
         color: white;
-        padding: 120px 0;
-        text-align: center;
+        font-size: 2rem;
+        cursor: pointer;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        transition: all 0.3s ease;
+    }
+    
+    .arrow:hover {
+        color: var(--secondary);
     }
 
-    .hero-content { max-width: 850px; margin: 0 auto; }
-    .hero h2, .hero p, .hero-buttons { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
-    .hero h2.visible, .hero p.visible, .hero-buttons.visible { opacity: 1; transform: translateY(0); }
+    /* ===== Fixed Navbar ===== */
+    header { background-color: white; color: var(--dark); padding: 15px 0; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+    .header-main { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; }
+    .logo { display: flex; align-items: center; gap: 15px; }
+    .logo img { height: 60px; border-radius: 10px; }
+    .logo-text h1 { font-size: 1.6rem; color: var(--primary); }
+    .logo-text span { font-size: 0.9rem; color: #666; }
 
-    .hero h2 { font-size: 3rem; margin-bottom: 25px; font-weight: 700; }
-    .hero p { font-size: 1.3rem; margin-bottom: 40px; opacity: 0.95; line-height: 1.8; }
-    .hero-buttons { display: flex; gap: 20px; justify-content: center; }
+    nav ul { display: flex; list-style: none; gap: 25px; }
+    nav a { color: var(--dark); text-decoration: none; font-weight: 600; position: relative; padding: 5px 0; font-size: 1rem; transition: all 0.3s ease; }
+    nav a:after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 3px; background: var(--primary); transition: width 0.3s ease; }
+    nav a:hover:after, nav a.active:after { width: 100%; }
+    nav a:hover, nav a.active { color: var(--primary); }
 
-    /* Features Section */
-    .features { background-color: white; }
-    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
-    .feature-card {
-        text-align: center;
-        padding: 40px 30px;
-        border-radius: 10px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
-        background: white;
-        opacity: 0;
-        transform: translateY(20px);
+    .mobile-menu-btn { display: none; background: none; border: none; color: var(--primary); font-size: 1.5rem; cursor: pointer; }
+
+    /* ===== Content Sections ===== */
+    .content-section { padding: 80px 0; opacity: 0; transform: translateY(50px); transition: all 0.7s ease-out; }
+    .content-section.visible { opacity: 1; transform: translateY(0); }
+    .section-title { text-align: center; margin-bottom: 40px; color: var(--primary); position: relative; }
+    .section-title:after { content: ''; display: block; width: 80px; height: 4px; background: var(--secondary); margin: 15px auto; border-radius: 2px; }
+    .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .content-card { background: white; border-radius: 10px; padding: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .content-card:hover { transform: translateY(-10px); box-shadow: 0 15px 25px rgba(0,0,0,0.15); }
+    .content-card h3 { color: var(--primary); margin-bottom: 15px; }
+    .content-card p { color: #666; line-height: 1.6; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 992px) { 
+        nav ul { gap: 15px; } 
+        .logo-text h1 { font-size: 1.4rem; } 
+        .slide-content h2 { font-size: 2.5rem; }
     }
-    .feature-card:hover { transform: translateY(-12px); box-shadow: 0 15px 30px rgba(0,0,0,0.12); }
-    .feature-icon { font-size: 3rem; color: var(--primary); margin-bottom: 25px; }
-    .feature-card h3 { margin-bottom: 20px; color: var(--primary); font-size: 1.4rem; }
-    .feature-card p { color: #555; line-height: 1.7; }
-
-    /* Programs Section */
-    .programs { background-color: #f8f9fa; }
-    .programs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
-    .program-card {
-        background: white;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        transition: transform 0.3s ease, opacity 0.5s ease;
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    .program-card:hover { transform: translateY(-8px) scale(1.03); }
-    .program-img { height: 220px; background-color: var(--primary); background-position: center; background-size: cover; }
-    .program-content { padding: 25px; }
-    .program-content h3 { color: var(--primary); margin-bottom: 15px; font-size: 1.3rem; }
-    .program-content p { margin-bottom: 20px; color: #666; line-height: 1.7; }
-
-    /* News Section */
-    .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
-    .news-card {
-        background: white;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        transition: transform 0.3s ease, opacity 0.5s ease;
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    .news-card:hover { transform: translateY(-8px) scale(1.03); }
-    .news-img { height: 220px; background-color: #ddd; background-position: center; background-size: cover; }
-    .news-content { padding: 25px; }
-    .news-date { color: var(--accent); font-size: 0.95rem; margin-bottom: 15px; font-weight: 600; }
-    .news-content h3 { margin-bottom: 15px; color: var(--primary); font-size: 1.3rem; }
-    .news-content p { margin-bottom: 20px; color: #555; line-height: 1.7; }
-
-    /* Testimonials */
-    .testimonials { background: linear-gradient(to right, var(--primary), var(--accent)); color: white; }
-    .testimonials .section-title { color: white; }
-    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-    .testimonial-card { background: rgba(255,255,255,0.1); padding: 30px; border-radius: 10px; backdrop-filter: blur(10px); }
-    .testimonial-text { font-style: italic; margin-bottom: 20px; line-height: 1.8; }
-    .testimonial-author { display: flex; align-items: center; gap: 15px; }
-    .author-img { width: 60px; height: 60px; border-radius: 50%; background-color: white; background-position: center; background-size: cover; }
-    .author-info h4 { font-weight: 600; margin-bottom: 5px; }
-    .author-info p { opacity: 0.8; font-size: 0.9rem; }
-
-    /* KKMU Section */
-    .kkmu-section { padding: 60px 20px; background: #fff; color: #000; }
-    .kkmu-section .section-title { text-align: center; font-size: 32px; color: #e2002a; margin-bottom: 40px; }
-    .content-wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; align-items: center; }
-    .media { position: relative; flex: 1 1 400px; max-width: 600px; }
-    .media img { width: 100%; border-radius: 10px; cursor: pointer; }
-    .play-button {
-        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-        font-size: 60px; color: #fff; background: rgba(0,0,0,0.4); border-radius: 50%;
-        width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; cursor: pointer;
-    }
-    .text-content { flex: 1 1 400px; max-width: 600px; background: #000; color: #fff; padding: 30px; border-radius: 10px; }
-    .text-content p { font-size: 16px; line-height: 1.6; }
-    .explore-btn { display: inline-block; margin-top: 20px; color: #fff; text-decoration: none; font-weight: bold; border-bottom: 2px solid #fff; }
-    .explore-btn:hover { color: #e2002a; border-color: #e2002a; }
-
-    /* Footer */
-    footer { background-color: var(--dark); color: white; padding: 80px 0 30px; }
-    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; margin-bottom: 50px; }
-    .footer-column h3 { font-size: 1.3rem; margin-bottom: 25px; position: relative; padding-bottom: 15px; color: var(--secondary); }
-    .footer-column h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 50px; height: 3px; background: var(--secondary); }
-    .footer-column ul { list-style: none; }
-    .footer-column ul li { margin-bottom: 12px; }
-    .footer-column a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.3s ease; }
-    .footer-column a:hover { color: var(--secondary); }
-    .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.95rem; color: rgba(255,255,255,0.6); }
-
-    /* Responsive */
-    @media (max-width: 992px) { nav ul { gap: 20px; } .logo-text h1 { font-size: 1.5rem; } .hero h2 { font-size: 2.5rem; } }
+    
     @media (max-width: 768px) {
-        .header-top { flex-direction: column; gap: 15px; text-align: center; }
-        .contact-info { justify-content: center; flex-wrap: wrap; }
-        .header-main { flex-direction: column; gap: 25px; }
-        nav ul { flex-direction: column; text-align: center; gap: 20px; }
+        .header-main { flex-direction: column; gap: 20px; }
+        nav ul { flex-direction: column; text-align: center; gap: 15px; display: none; }
+        nav ul.active { display: flex; }
         .mobile-menu-btn { display: block; position: absolute; top: 25px; right: 20px; }
-        .hero h2 { font-size: 2.2rem; } .hero p { font-size: 1.1rem; } .hero-buttons { flex-direction: column; align-items: center; }
-        .section { padding: 60px 0; }
-        .content-wrapper { flex-direction: column; }
+        body { padding-top: 140px; }
+        .content-card { padding: 20px; }
+        .hero-slider { height: 60vh; margin-top: 140px; }
+        .slide-content h2 { font-size: 2rem; }
+        .slide-content p { font-size: 1rem; }
+    }
+    
+    @media (max-width: 576px) {
+        .hero-slider { height: 50vh; }
+        .slide-content h2 { font-size: 1.8rem; }
+        .slider-arrows { display: none; }
     }
 </style>
 </head>
 <body>
-
-<!-- Header -->
-<header>
+<!-- Fixed Header -->
+<header id="navbar">
     <div class="container">
-        <div class="header-top">
-            <div class="contact-info">
-                <a href="tel:+911234567890"><i class="fas fa-phone"></i> +91 1234567890</a>
-                <a href="mailto:info@college.edu"><i class="fas fa-envelope"></i> info@college.edu</a>
-                <a href="#"><i class="fas fa-map-marker-alt"></i> College Campus, City, State</a>
-            </div>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
-        </div>
         <div class="header-main">
             <div class="logo">
-                <img src="https://via.placeholder.com/70x70/1a365d/ffffff?text=COLLEGE" alt="College Logo">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfx3emorTMDH5IrW9UkiufQYY0vitdR2mQmg&s" alt="College Logo">
                 <div class="logo-text">
-                    <h1>College Name</h1>
-                    <span>Excellence in Education Since 1990</span>
+                    <h1>KRISHNA ENGINEERING COLLEGE</h1>
+                    <span>Managed By KPS GROUP</span>
                 </div>
             </div>
-            <button class="mobile-menu-btn" id="menuToggle">
+            <button class="mobile-menu-btn" id="menuToggle" aria-label="Toggle Menu">
                 <i class="fas fa-bars"></i>
             </button>
-            <nav class="nav-menu" id="mainNav">
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Academics</a></li>
-                    <li><a href="#">Admissions</a></li>
-                    <li><a href="#">Programs</a></li>
-                    <li><a href="#">Campus</a></li>
-                    <li><a href="#">Research</a></li>
-                    <li><a href="#">Contact</a></li>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#programs">Programs</a></li>
+                    <li><a href="#admissions">Admissions</a></li>
+                    <li><a href="#campus">Campus</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </div>
 </header>
 
-<!-- Hero -->
-<section class="hero">
-    <div class="container">
-        <div class="hero-content">
-            <h2>Shaping Tomorrow's Leaders Through Excellence in Education</h2>
-            <p>Join our vibrant academic community and unlock your potential with industry-relevant programs, experienced faculty, and state-of-the-art facilities.</p>
-            <div class="hero-buttons">
-                <a href="#" class="btn">Explore Programs</a>
-                <a href="#" class="btn btn-secondary">Apply Now</a>
-            </div>
+<!-- Hero Slider -->
+<div class="hero-slider">
+    <!-- Slide 1: Video -->
+    <div class="slide active">
+        <video muted autoplay loop playsinline>
+            <source src="video/video2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="overlay"></div>
+        <div class="slide-content">
+            <h2>Vibrant Campus Life</h2>
+            <p>Experience our dynamic community and state-of-the-art facilities</p>
+            <a href="#campus" class="btn">Explore Campus</a>
         </div>
     </div>
-</section>
 
-<!-- Features -->
-<section class="section features">
-    <div class="container">
-        <h2 class="section-title">Why Choose Our College</h2>
-        <div class="features-grid">
-            <div class="feature-card"><i class="fas fa-chalkboard-teacher feature-icon"></i><h3>Expert Faculty</h3><p>Learn from highly qualified professors and industry experts guiding you every step.</p></div>
-            <div class="feature-card"><i class="fas fa-graduation-cap feature-icon"></i><h3>Modern Curriculum</h3><p>Curriculum designed to meet global standards and industry demands.</p></div>
-            <div class="feature-card"><i class="fas fa-laptop-code feature-icon"></i><h3>Innovation Labs</h3><p>Hands-on learning in advanced labs fostering creativity and research.</p></div>
-            <div class="feature-card"><i class="fas fa-globe feature-icon"></i><h3>Global Exposure</h3><p>Collaborations with international universities and student exchange programs.</p></div>
+    <!-- Slide 2: Image -->
+    <div class="slide">
+        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1800&q=80" alt="College Campus">
+        <div class="overlay"></div>
+        <div class="slide-content">
+            <h2>Welcome to Our Prestigious College</h2>
+            <p>Where futures are shaped and dreams become reality</p>
+            <a href="#admissions" class="btn">Apply Now</a>
         </div>
     </div>
-</section>
 
-<!-- Programs -->
-<section class="section programs">
-    <div class="container">
-        <h2 class="section-title">Our Programs</h2>
-        <div class="programs-grid">
-            <div class="program-card"><div class="program-img" style="background-image:url('https://images.unsplash.com/photo-1581091215362-0a1478d88d2f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')"></div><div class="program-content"><h3>Bachelor of Technology</h3><p>Engineering programs designed for innovation and leadership in technology fields.</p><a href="#" class="btn btn-secondary">Know More</a></div></div>
-            <div class="program-card"><div class="program-img" style="background-image:url('https://images.unsplash.com/photo-1559028012-481aef4f936d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')"></div><div class="program-content"><h3>Bachelor of Science</h3><p>Science programs with hands-on labs and research-driven approach for future scientists.</p><a href="#" class="btn btn-secondary">Know More</a></div></div>
-            <div class="program-card"><div class="program-img" style="background-image:url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')"></div><div class="program-content"><h3>Bachelor of Arts</h3><p>Humanities and social science programs to nurture critical thinking and communication.</p><a href="#" class="btn btn-secondary">Know More</a></div></div>
-            <div class="program-card"><div class="program-img" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')"></div><div class="program-content"><h3>Master Programs</h3><p>Advanced postgraduate programs focusing on research, leadership, and innovation.</p><a href="#" class="btn btn-secondary">Know More</a></div></div>
+    <!-- Slide 3: Image -->
+    <div class="slide">
+        <img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1800&q=80" alt="College Library">
+        <div class="overlay"></div>
+        <div class="slide-content">
+            <h2>Excellence in Education</h2>
+            <p>Join our community of scholars and innovators</p>
+            <a href="#programs" class="btn">View Programs</a>
         </div>
     </div>
-</section>
 
-<!-- KKMU Section -->
-<section class="kkmu-section">
-    <div class="container">
-        <h2 class="section-title">KKMU - Our Legacy</h2>
-        <div class="content-wrapper">
-            <div class="media">
-                <img src="https://images.unsplash.com/photo-1605276373372-11d4dbf82b26?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="KKMU Media">
-                <div class="play-button" id="playBtn"><i class="fas fa-play"></i></div>
+    <div class="slider-arrows">
+        <div class="arrow prev"><i class="fas fa-chevron-left"></i></div>
+        <div class="arrow next"><i class="fas fa-chevron-right"></i></div>
+    </div>
+
+    <div class="slider-controls">
+        <div class="slider-dot active" data-slide="0"></div>
+        <div class="slider-dot" data-slide="1"></div>
+        <div class="slider-dot" data-slide="2"></div>
+    </div>
+</div>
+
+<div class="container">
+    <section id="home" class="content-section">
+        <h2 class="section-title">Welcome to Our College</h2>
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>Academic Programs</h3>
+                <p>We offer a wide range of undergraduate and graduate programs designed to prepare students for successful careers.</p>
             </div>
-            <div class="text-content">
-                <p>Krishna Knowledge Management University (KKMU) has been a pioneer in providing quality education and shaping future leaders across various domains. Our collaborative environment, advanced infrastructure, and dedicated faculty ensure students achieve excellence in academics, research, and personal growth.</p>
-                <a href="#" class="explore-btn">Explore More</a>
+            <div class="content-card">
+                <h3>Research Opportunities</h3>
+                <p>Our college is at the forefront of research innovation with state-of-the-art facilities and expert faculty.</p>
+            </div>
+            <div class="content-card">
+                <h3>Campus Life</h3>
+                <p>Experience a vibrant campus community with numerous clubs, organizations, and athletic programs.</p>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-column">
-                <h3>About Us</h3>
-                <p>Leading college in education, research, and innovation, dedicated to shaping future leaders with global perspectives and practical knowledge.</p>
+    <section id="about" class="content-section">
+        <h2 class="section-title">About Our College</h2>
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>Our History</h3>
+                <p>Founded in 1965, our college has a long tradition of academic excellence and community engagement.</p>
             </div>
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Programs</a></li>
-                    <li><a href="#">Admissions</a></li>
-                    <li><a href="#">Research</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
+            <div class="content-card">
+                <h3>Our Mission</h3>
+                <p>To provide quality education that transforms students into leaders and innovators in their fields.</p>
             </div>
-            <div class="footer-column">
-                <h3>Contact Us</h3>
-                <ul>
-                    <li><i class="fas fa-phone"></i> +91 1234567890</li>
-                    <li><i class="fas fa-envelope"></i> info@college.edu</li>
-                    <li><i class="fas fa-map-marker-alt"></i> College Campus, City, State</li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Newsletter</h3>
-                <p>Subscribe to get latest updates and news.</p>
-                <form>
-                    <input type="email" placeholder="Your Email" style="padding:10px;width:100%;border:none;border-radius:5px;margin-bottom:10px;">
-                    <button class="btn" type="submit" style="width:100%;">Subscribe</button>
-                </form>
+            <div class="content-card">
+                <h3>Our Values</h3>
+                <p>We value integrity, diversity, excellence, and a commitment to lifelong learning.</p>
             </div>
         </div>
-        <div class="footer-bottom">© 2025 College Name. All Rights Reserved.</div>
-    </div>
-</footer>
+    </section>
 
-<!-- Scripts -->
+    <section id="programs" class="content-section">
+        <h2 class="section-title">Student Resources</h2>
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>Library Services</h3>
+                <p>Access to extensive digital and physical collections, research assistance, and study spaces.</p>
+            </div>
+            <div class="content-card">
+                <h3>Career Development</h3>
+                <p>Comprehensive career services including internships, job placement, and professional development.</p>
+            </div>
+            <div class="content-card">
+                <h3>Student Support</h3>
+                <p>We provide academic advising, tutoring, counseling, and other support services for student success.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="campus" class="content-section">
+        <h2 class="section-title">Campus News</h2>
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>New Science Building</h3>
+                <p>Construction begins on our new state-of-the-art science facility, set to open next year.</p>
+            </div>
+            <div class="content-card">
+                <h3>Research Grant</h3>
+                <p>Our faculty received a $2M grant for climate change research from the National Science Foundation.</p>
+            </div>
+            <div class="content-card">
+                <h3>Student Achievements</h3>
+                <p>Our students won first place in the national robotics competition for the third year in a row.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="admissions" class="content-section">
+        <h2 class="section-title">Upcoming Events</h2>
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>Open House</h3>
+                <p>Join us on October 15th for our annual open house event. Tour the campus and meet our faculty.</p>
+            </div>
+            <div class="content-card">
+                <h3>Guest Lecture</h3>
+                <p>Nobel laureate Dr. Jane Smith will be giving a lecture on quantum computing on November 5th.</p>
+            </div>
+            <div class="content-card">
+                <h3>Career Fair</h3>
+                <p>Annual career fair on November 12th with over 100 companies recruiting our students.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="content-section">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>Address</h3>
+                <p>123 College Street, City, State, India</p>
+            </div>
+            <div class="content-card">
+                <h3>Email</h3>
+                <p>info@college.edu.in</p>
+            </div>
+            <div class="content-card">
+                <h3>Phone</h3>
+                <p>+91 9876543210</p>
+            </div>
+        </div>
+    </section>
+</div>
+
 <script>
-    // Mobile Menu Toggle
-    const menuBtn = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('mainNav');
-    menuBtn.addEventListener('click', () => {
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    menuToggle.addEventListener('click', function(e){
+        e.stopPropagation();
         navMenu.classList.toggle('active');
+        menuToggle.innerHTML = navMenu.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
     });
 
-    // Hero Section Animation
-    window.addEventListener('load', () => {
-        document.querySelector('.hero h2').classList.add('visible');
-        document.querySelector('.hero p').classList.add('visible');
-        document.querySelector('.hero-buttons').classList.add('visible');
-    });
-
-    // Smooth Scroll
     document.querySelectorAll('nav a').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if(target) { target.scrollIntoView({ behavior: 'smooth' }); }
+        link.addEventListener('click', function(){
+            navMenu.classList.remove('active');
+            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
         });
     });
 
-    // Feature & Program & News Card Fade-in on Scroll
-    const cards = document.querySelectorAll('.feature-card, .program-card, .news-card');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if(entry.isIntersecting) { entry.target.style.opacity = 1; entry.target.style.transform = 'translateY(0)'; }
-        });
-    }, { threshold: 0.1 });
-    cards.forEach(card => observer.observe(card));
-
-    // KKMU Play Video
-    const playBtn = document.getElementById('playBtn');
-    const media = document.querySelector('.media img');
-    playBtn.addEventListener('click', () => {
-        media.outerHTML = `<video src="https://www.w3schools.com/html/mov_bbb.mp4" autoplay controls style="width:100%; border-radius:10px;"></video>`;
-        playBtn.style.display = 'none';
+    document.addEventListener('click', function(e){
+        if(navMenu.classList.contains('active') && !navMenu.contains(e.target) && e.target !== menuToggle){
+            navMenu.classList.remove('active');
+            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        }
     });
+
+    // Scroll-triggered animations for sections
+    const sections = document.querySelectorAll('.content-section');
+    const revealSections = () => {
+        const triggerBottom = window.innerHeight / 5 * 4;
+        sections.forEach(section => {
+            const sectionTop = section.getBoundingClientRect().top;
+            if(sectionTop < triggerBottom){
+                section.classList.add('visible');
+            }
+        });
+    };
+    window.addEventListener('scroll', revealSections);
+    revealSections();
+document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.slider-dot');
+    const prevArrow = document.querySelector('.arrow.prev');
+    const nextArrow = document.querySelector('.arrow.next');
+    let currentSlide = 0;
+    let slideInterval;
+
+    // Now your slider code here
+});
+
+// Function to show a specific slide
+function showSlide(index) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+
+    // Wrap-around
+    if (index < 0) currentSlide = slides.length - 1;
+    else if (index >= slides.length) currentSlide = 0;
+    else currentSlide = index;
+
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+
+    // Play video if current slide has video
+    const currentVideo = slides[currentSlide].querySelector('video');
+    if (currentVideo) {
+        currentVideo.play();
+    }
+
+    // Pause other videos
+    slides.forEach(slide => {
+        const video = slide.querySelector('video');
+        if (video && video !== currentVideo) {
+            video.pause();
+            video.currentTime = 0;
+        }
+    });
+}
+
+// Next slide
+function nextSlide() {
+    showSlide(currentSlide + 1);
+}
+
+// Start auto-slider (60 seconds per slide)
+function startSlider() {
+    slideInterval = setInterval(nextSlide, 60000); // 60000ms = 1 minute
+}
+
+// Stop auto-slider
+function stopSlider() {
+    clearInterval(slideInterval);
+}
+
+// Event listeners
+prevArrow.addEventListener('click', () => { stopSlider(); showSlide(currentSlide - 1); startSlider(); });
+nextArrow.addEventListener('click', () => { stopSlider(); nextSlide(); startSlider(); });
+
+dots.forEach(dot => {
+    dot.addEventListener('click', function() {
+        stopSlider();
+        showSlide(parseInt(this.getAttribute('data-slide')));
+        startSlider();
+    });
+});
+
+// Pause slider on hover
+const slider = document.querySelector('.hero-slider');
+
+slider.addEventListener('mouseenter', stopSlider);
+slider.addEventListener('mouseleave', startSlider);
+
+// Initialize slider
+showSlide(0); // Show first slide (video)
+startSlider();
+
+    // Active nav highlighting
+    const navItems = document.querySelectorAll('nav a');
+    window.addEventListener('scroll', function(){
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if(pageYOffset >= (sectionTop - 150)){
+                current = section.getAttribute('id');
+            }
+        });
+        navItems.forEach(item => {
+            item.classList.remove('active');
+            if(item.getAttribute('href').substring(1) === current){
+                item.classList.add('active');
+            }
+        });
+    });
+
+    // Hero Slider Functionality
+    const slider = document.querySelector('.hero-slider');
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.slider-dot');
+    const prevArrow = document.querySelector('.arrow.prev');
+    const nextArrow = document.querySelector('.arrow.next');
+    let currentSlide = 0;
+    let slideInterval;
+
+    // Function to show a specific slide
+    function showSlide(index) {
+        // Reset all slides and dots
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        // Handle wrap-around for slide index
+        if (index < 0) {
+            currentSlide = slides.length - 1;
+        } else if (index >= slides.length) {
+            currentSlide = 0;
+        } else {
+            currentSlide = index;
+        }
+        
+        // Activate current slide and dot
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+        
+        // If current slide is a video, play it
+        const currentVideo = slides[currentSlide].querySelector('video');
+        if (currentVideo) {
+            currentVideo.play();
+        }
+        
+        // Pause videos in other slides
+        document.querySelectorAll('.slide video').forEach(video => {
+            if (video !== currentVideo) {
+                video.pause();
+                video.currentTime = 0;
+            }
+        });
+    }
+
+    // Function to go to next slide
+    function nextSlide() {
+        showSlide(currentSlide + 1);
+    }
+
+    // Function to start auto-sliding
+    function startSlider() {
+        slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+    }
+
+    // Function to stop auto-sliding
+    function stopSlider() {
+        clearInterval(slideInterval);
+    }
+
+    // Event listeners for slider controls
+    prevArrow.addEventListener('click', () => {
+        stopSlider();
+        showSlide(currentSlide - 1);
+        startSlider();
+    });
+
+    nextArrow.addEventListener('click', () => {
+        stopSlider();
+        nextSlide();
+        startSlider();
+    });
+
+    dots.forEach(dot => {
+        dot.addEventListener('click', function() {
+            stopSlider();
+            const slideIndex = parseInt(this.getAttribute('data-slide'));
+            showSlide(slideIndex);
+            startSlider();
+        });
+    });
+
+    // Pause slider when user hovers over it
+    slider.addEventListener('mouseenter', stopSlider);
+    slider.addEventListener('mouseleave', startSlider);
+
+    // Initialize the slider
+    startSlider();
 </script>
-
 </body>
 </html>
