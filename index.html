@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishna Engineering College</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== GLOBAL STYLES ===== */
+        :root {
+            --primary: #1a365d;
+            --secondary: #e9b949;
+            --accent: #e53e3e;
+            --light: #f8fafc;
+            --dark: #1a202c;
+            --gray: #718096;
+            --transition: all 0.3s ease-in-out;
+            --gradient: linear-gradient(135deg, #1a365d, #2d4a7c);
+            --gradient-secondary: linear-gradient(135deg, #e9b949, #f5d76e);
+        }
+
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            color: #333;
+            line-height: 1.6;
+            background-color: #f5f7f9;
+            padding-top: 120px; /* Increased for new header layout */
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary);
+            position: relative;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .btn-custom {
+            background: var(--gradient);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            transition: var(--transition);
+            font-weight: 600;
+            display: inline-block;
+            border: none;
+            box-shadow: 0 4px 15px rgba(26, 54, 93, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-custom:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-secondary);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .btn-custom:hover {
+            color: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 54, 93, 0.4);
+        }
+
+        .btn-custom:hover:before {
+            left: 0;
+        }
+
+        /* ===== Bulletin / News Section ===== */
+        .bulletin-section {
+            background: var(--gradient);
+            color: #fff;
+            padding: 12px 0;
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .bulletin-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .bulletin-header i {
+            color: var(--secondary);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-5px);}
+            60% {transform: translateY(-3px);}
+        }
+
+        .bulletin-slider-wrapper {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .bulletin-slider {
+            display: flex;
+            gap: 80px;
+            width: max-content;
+            animation: slideNews 25s linear infinite;
+        }
+
+        .bulletin-slider-wrapper:hover .bulletin-slider {
+            animation-play-state: paused;
+        }
+
+        .bulletin-item {
+            white-space: nowrap;
+            font-size: 1rem;
+            line-height: 1.5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bulletin-item i {
+            color: var(--secondary);
+        }
+
+        @keyframes slideNews {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--dark);
+            padding: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 60px;
+            border-radius: 6px;
+            transition: var(--transition);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .logo:hover img {
+            transform: scale(1.05);
+        }
+
+        .logo-text h1 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .logo-images {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .logo-images img {
+            height: 80px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .logo-images img:hover {
+            transform: scale(1.05);
+        }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            padding: 0;
+        }
+
+        .navbar-nav .nav-link {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--dark);
+            position: relative;
+            transition: var(--transition);
+            padding: 12px 15px !important;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: var(--primary);
+        }
+
+        .navbar-nav .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover:after,
+        .navbar-nav .nav-link.active:after {
+            width: 100%;
+        }
+
+        /* Dropdown menu */
+        .dropdown-menu {
+            background: #0b355f;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            border: none;
+            padding: 0;
+            overflow: hidden;
+            margin-top: 0;
+        }
+
+        .dropdown-item {
+            color: #fff;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: background 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background: #1a365d;
+            padding-left: 20px;
+            color: #fff;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Nested dropdown (second-level) */
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-submenu .dropdown-menu {
+            top: 0;
+            left: 100%;
+            background: #1a365d;
+            min-width: 220px;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            display: none;
+        }
+
+        .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+        }
+
+        /* Navbar toggler styling */
+        .navbar-toggler {
+            border: none;
+            padding: 5px 10px;
+            background: transparent;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(26, 54, 93, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* Mobile dropdown adjustments */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background: rgba(255, 255, 255, 0.98);
+                margin-top: 10px;
+                border-radius: 8px;
+                padding: 15px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+            
+            .dropdown-menu {
+                background: rgba(11, 53, 95, 0.95);
+                margin-left: 15px;
+                width: calc(100% - 30px);
+            }
+            
+            .dropdown-submenu .dropdown-menu {
+                position: static;
+                margin-left: 20px;
+                width: calc(100% - 20px);
+                display: none;
+            }
+            
+            .dropdown-submenu.show .dropdown-menu {
+                display: block;
+            }
+            
+            .dropdown-toggle::after {
+                float: right;
+                margin-top: 8px;
+            }
+        }
+
+        /* ===== HERO SLIDER ===== */
+        .carousel-item {
+            height: 100vh;
+            position: relative;
+        }
+
+        .carousel-item img {
+            object-fit: cover;
+            height: 100%;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            max-width: 800px;
+        }
+
+        .carousel-caption h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            font-weight: 700;
+            animation: fadeInUp 1s ease;
+        }
+
+        .carousel-caption p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .carousel-caption .btn {
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            opacity: 1;
+            background: rgba(0,0,0,0.5);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-indicators button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            transition: var(--transition);
+            border: none;
+            margin: 0 5px;
+        }
+
+        .carousel-indicators button.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        /* ===== Why Us Section ===== */
+        .kec-why-us-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #f9f9f9, #eef2f7);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kec-why-us-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(26,54,93,0.03)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            z-index: 0;
+        }
+
+        .kec-section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .kec-section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .kec-cursor {
+            display: inline-block;
+            color: var(--primary);
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0; }
+        }
+
+        .kec-section-subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .kec-feature-card {
+            background: #fff;
+            padding: 30px 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transform: translateY(20px) rotateY(5deg);
+            opacity: 0;
+            animation: fadeUp 0.8s forwards;
+            transform-style: preserve-3d;
+            transition: transform 0.6s, box-shadow 0.6s;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .kec-feature-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        .kec-feature-card:hover {
+            transform: translateY(-10px) rotateY(0);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        @keyframes fadeUp {
+            to {
+                transform: translateY(0) rotateY(0);
+                opacity: 1;
+            }
+        }
+
+        .kec-feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: transform 0.6s, color 0.6s;
+        }
+
+        .kec-feature-card:hover .kec-feature-icon {
+            transform: rotateY(360deg) scale(1.2);
+            color: var(--secondary);
+        }
+
+        .kec-feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .kec-feature-card p {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* ===== B.Tech Courses Section ===== */
+        .btech-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #f0f4ff, #e6eeff);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btech-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="rgba(0,119,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+            z-index: 0;
+        }
+
+        .section-heading {
+            text-align: center;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-heading::after {
+            content: '';
+            display: block;
+            width: 120px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto 0;
+            border-radius: 5px;
+        }
+
+        .course-row {
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .course-row.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .course-image img {
+            width: 100%;
+            border-radius: 20px;
+            object-fit: cover;
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .course-image:hover img {
+            transform: rotateY(5deg) scale(1.03);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .course-text h3 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .course-meta {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .course-meta strong {
+            color: var(--accent);
+        }
+
+        .course-text p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #000000;
+            margin-bottom: 25px;
+        }
+
+        .explore-link {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--gradient);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 119, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .explore-link:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-secondary);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .explore-link:hover {
+            color: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 119, 255, 0.4);
+        }
+
+        .explore-link:hover:before {
+            left: 0;
+        }
+
+        /* ===== Our Partners Section ===== */
+        .partners-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #f9fafc, #f0f4f8);
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .partners-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="lines" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(26,54,93,0.03)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23lines)"/></svg>');
+            z-index: 0;
+        }
+
+        .partners-subtext {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .partners-slider-wrapper {
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .partners-slider {
+            display: flex;
+            gap: 50px;
+            width: max-content;
+            animation: slideLoop 40s linear infinite;
+        }
+
+        .partners-slider:hover {
+            animation-play-state: paused;
+        }
+
+        .partner-card {
+            flex: 0 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            perspective: 1000px;
+        }
+
+        .partner-card img {
+            max-width: 220px;
+            max-height: 160px;
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+            filter: grayscale(0.3);
+        }
+
+        .partner-card:hover {
+            transform: scale(1.1) rotateY(5deg);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+        }
+
+        .partner-card:hover img {
+            filter: grayscale(0);
+            transform: scale(1.05);
+        }
+
+        @keyframes slideLoop {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ===== Testimonials Section ===== */
+        .testimonials-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #f9fafc, #eef2f7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="circles" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(26,54,93,0.03)"/></pattern></defs><rect width="100" height="100" fill="url(%23circles)"/></svg>');
+            z-index: 0;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .testimonial-card:before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 4rem;
+            color: #f0f0f0;
+            line-height: 1;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-text {
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--secondary);
+        }
+
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-details h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .author-details p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* ===== Contact Section ===== */
+        #contact {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #f0f0f0, #e5e9ec);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #contact:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="hexagons" width="10" height="10" patternUnits="userSpaceOnUse"><polygon points="5,0 10,2.5 10,7.5 5,10 0,7.5 0,2.5" fill="none" stroke="rgba(0,119,204,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23hexagons)"/></svg>');
+            z-index: 0;
+        }
+
+        #contact .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            font-weight: 700;
+            color: #222;
+            position: relative;
+            z-index: 1;
+        }
+
+        #contact .section-title::after {
+            content: "";
+            width: 80px;
+            height: 3px;
+            background: var(--secondary);
+            display: block;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 18px;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .contact-item::before {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: rgba(0,119,204,0.08);
+            transition: left 0.4s ease;
+        }
+
+        .contact-item:hover::before {
+            left: 0;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .contact-icon {
+            width: 55px;
+            height: 55px;
+            background: var(--gradient);
+            color: #fff;
+            font-size: 22px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: float 3s ease-in-out infinite;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .contact-text h4 {
+            margin: 0 0 5px;
+            font-size: 1.2rem;
+            color: #111;
+            font-weight: 600;
+        }
+
+        .contact-text p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+            100% { transform: translateY(0); }
+        }
+
+        .contact-form {
+            background: #fff;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form::before {
+            content: "";
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(135deg, rgba(0,119,204,0.08), transparent);
+            transform: rotate(25deg);
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #bbb;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-size: 0.95rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 6px rgba(26,54,93,0.3);
+        }
+
+        .contact-form textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            background: var(--gradient);
+            color: #fff;
+            padding: 60px 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="footer-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23footer-pattern)"/></svg>');
+            z-index: 0;
+        }
+
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .footer-column p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.9);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        /* ===== RESPONSIVE STYLES ===== */
+        @media (max-width: 1199px) {
+            .carousel-caption h2 {
+                font-size: 3rem;
+            }
+            
+            .carousel-caption p {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 991px) {
+            body {
+                padding-top: 100px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.2rem;
+            }
+            
+            .logo img {
+                height: 50px;
+            }
+            
+            .logo-images img {
+                height: 35px;
+            }
+            
+            .carousel-caption h2 {
+                font-size: 2.5rem;
+            }
+            
+            .carousel-caption p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .kec-section-title {
+                font-size: 2.2rem;
+            }
+            
+            .course-text h3 {
+                font-size: 1.8rem;
+            }
+            
+            .course-row {
+                margin-bottom: 50px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                padding-top: 90px;
+            }
+            
+            .logo-area {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .logo-images {
+                justify-content: center;
+            }
+            
+            .carousel-caption h2 {
+                font-size: 2rem;
+            }
+            
+            .carousel-caption p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .kec-section-title {
+                font-size: 1.8rem;
+            }
+            
+            .course-text h3 {
+                font-size: 1.6rem;
+            }
+            
+            .course-meta {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .footer-column {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .carousel-caption h2 {
+                font-size: 1.6rem;
+            }
+            
+            .carousel-caption p {
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .kec-section-title {
+                font-size: 1.6rem;
+            }
+            
+            .kec-feature-card {
+                padding: 20px 15px;
+            }
+            
+            .contact-form {
+                padding: 25px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bulletin / News Section -->
+    <div class="bulletin-section">
+        <div class="container">
+            <div class="bulletin-header">
+                <i class="fas fa-bullhorn"></i>
+                <span>Latest Updates</span>
+            </div>
+            <div class="bulletin-slider-wrapper">
+                <div class="bulletin-slider">
+                    <div class="bulletin-item"><i class="fas fa-calendar-alt"></i> Admissions Open for 2024-25 Session</div>
+                    <div class="bulletin-item"><i class="fas fa-trophy"></i> KEC Students Win National Robotics Competition</div>
+                    <div class="bulletin-item"><i class="fas fa-users"></i> Campus Recruitment Drive by Tech Giants</div>
+                    <div class="bulletin-item"><i class="fas fa-book"></i> New Industry-Academia Collaboration Program</div>
+                    <div class="bulletin-item"><i class="fas fa-calendar-alt"></i> Admissions Open for 2024-25 Session</div>
+                    <div class="bulletin-item"><i class="fas fa-trophy"></i> KEC Students Win National Robotics Competition</div>
+                    <div class="bulletin-item"><i class="fas fa-users"></i> Campus Recruitment Drive by Tech Giants</div>
+                    <div class="bulletin-item"><i class="fas fa-book"></i> New Industry-Academia Collaboration Program</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo-area">
+                <div class="logo">
+                    <a href="#">
+                        <img src="data:image/jpeg;base64,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" alt="KEC Logo">
+                    </a>
+                    <div class="logo-text">
+                        <h1>Krishna Engineering College</h1>
+                        <span>Managed By KPS GROUP</span>
+                    </div>
+                </div>
+                <div class="logo-images">
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div style="display:flex; justify-content:center; gap:40px; text-align:center; font-size:16px; flex-wrap:wrap;">
+  <div>
+    <i class="fas fa-award fa-lg"></i>
+    <p>Best Results</p>
+  </div>
+  <div>
+    <i class="fas fa-medal fa-lg"></i>
+    <p>Quality Education</p>
+  </div>
+  <div>
+    <i class="fas fa-star fa-lg"></i>
+    <p>Placement</p>
+  </div>
+  <div>
+    <i class="fas fa-user-tie fa-lg"></i>
+    <p>Mentor</p>
+  </div>
+</div>
+
+
+                    <img src="https://www.kecbhilai.com/images/s20.png" alt="NAAC">
+                </div>
+            </div>
+            
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid px-0">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" 
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav mx-auto">
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#"><i class="fas fa-home"></i> Home</a>
+        </li>
+
+        <!-- About -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" 
+             data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-info-circle"></i> About Us
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
+            <li><a class="dropdown-item" href="#">College Overview</a></li>
+            <li><a class="dropdown-item" href="#">Vision & Mission</a></li>
+            <li><a class="dropdown-item" href="#">Leadership</a></li>
+            <li><a class="dropdown-item" href="#">Infrastructure</a></li>
+            <li><a class="dropdown-item" href="#">Gallery</a></li>
+          </ul>
+        </li>
+
+        <!-- Academics -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="academicsDropdown" role="button" 
+             data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-graduation-cap"></i> Academics
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="academicsDropdown">
+            <li><a class="dropdown-item" href="#">B.Tech Programs</a></li>
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="#">Departments</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Computer Science</a></li>
+                <li><a class="dropdown-item" href="#">Mechanical Engineering</a></li>
+                <li><a class="dropdown-item" href="#">Civil Engineering</a></li>
+                <li><a class="dropdown-item" href="#">Electronics & Communication</a></li>
+                <li><a class="dropdown-item" href="#">Electrical Engineering</a></li>
+              </ul>
+            </li>
+            <li><a class="dropdown-item" href="#">Academic Calendar</a></li>
+            <li><a class="dropdown-item" href="#">Syllabus</a></li>
+            <li><a class="dropdown-item" href="#">Examination</a></li>
+          </ul>
+        </li>
+
+        <!-- Admissions -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="admissionsDropdown" role="button" 
+             data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user-plus"></i> Admissions
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="admissionsDropdown">
+            <li><a class="dropdown-item" href="super40.html">Super 40 Registration 2026</a></li>
+            <li><a class="dropdown-item" href="#">Super 40 Admit Card 2026</a></li>
+            <li><a class="dropdown-item" href="#">Super 40 Examination 2026</a></li>
+          </ul>
+        </li>
+
+        <!-- Summer Camp -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="summerCampDropdown" role="button" 
+             data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-campground"></i> Summer Camp
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="summerCampDropdown">
+            <li><a class="dropdown-item" href="#">Drone</a></li>
+            <li><a class="dropdown-item" href="#">EV</a></li>
+            <li><a class="dropdown-item" href="#">Charging Station Infrastructure</a></li>
+            <li><a class="dropdown-item" href="#">Advance Coding</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fas fa-briefcase"></i> Placements</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fas fa-newspaper"></i> News</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact"><i class="fas fa-phone-alt"></i> Contact</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+            
+    </header>
+
+    <!-- Rest of your content remains the same -->
+   <!-- Hero Slider -->
+<div id="heroSlider" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+
+  <div class="carousel-inner">
+
+    <!-- Slide 1 (Video) -->
+    <div class="carousel-item active">
+      <video class="d-block w-100" autoplay muted loop playsinline>
+        <source src="video2.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+      <div class="carousel-caption">
+        <h2>Welcome to Krishna Engineering College</h2>
+        <p>Shaping futures through excellence in engineering education since 2008</p>
+        <a href="#" class="btn btn-custom">Explore Programs</a>
+      </div>
+    </div>
+
+    <!-- Slide 2 (Video) -->
+    <!-- <div class="carousel-item">
+      <video class="d-block w-100" autoplay muted loop playsinline>
+        <source src="your-infra-video.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+      <div class="carousel-caption">
+        <h2>State-of-the-Art Infrastructure</h2>
+        <p>Modern labs, libraries, and facilities for holistic learning</p>
+        <a href="#" class="btn btn-custom">View Facilities</a>
+      </div>
+    </div> -->
+
+    <!-- Slide 3 (Video) -->
+    <!-- <div class="carousel-item">
+      <video class="d-block w-100" autoplay muted loop playsinline>
+        <source src="your-placements-video.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+      <div class="carousel-caption">
+        <h2>Excellent Placement Record</h2>
+        <p>Top recruiters and highest packages year after year</p>
+        <a href="#" class="btn btn-custom">Placement Details</a>
+      </div>
+    </div> -->
+
+  </div>
+
+  <!-- Controls -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroSlider" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroSlider" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+    <!-- Why Krishna Engineering College Section -->
+    <section class="kec-why-us-section">
+        <div class="container">
+            <h2 class="kec-section-title">Why Krishna Engineering College ?<span class="kec-cursor">|</span></h2>
+            <p class="kec-section-subtitle">Discover what makes KEC the preferred choice for aspiring engineers</p>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="kec-feature-card" style="animation-delay: 0.1s">
+                        <div class="kec-feature-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3>Experienced Faculty</h3>
+                        <p>Learn from highly qualified and industry-experienced professors dedicated to student success.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="kec-feature-card" style="animation-delay: 0.3s">
+                        <div class="kec-feature-icon">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <h3>Modern Laboratories</h3>
+                        <p>Hands-on learning with state-of-the-art labs equipped with latest technology and equipment.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="kec-feature-card" style="animation-delay: 0.5s">
+                        <div class="kec-feature-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3>Excellent Placements</h3>
+                        <p>Strong industry connections leading to 90%+ placement rate with top companies.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="kec-feature-card" style="animation-delay: 0.7s">
+                        <div class="kec-feature-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Green Campus</h3>
+                        <p>Sprawling eco-friendly campus with excellent amenities for holistic development.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B.Tech Courses Section -->
+    <section class="btech-section">
+        <div class="container">
+            <h2 class="section-heading">Our B.Tech Programs</h2>
+            
+            <div class="row course-row align-items-center">
+                <div class="col-lg-6">
+                    <div class="course-image">
+                        <img src="https://via.placeholder.com/600x400/1a365d/ffffff?text=Computer+Science" alt="Computer Science Engineering">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="course-text">
+                        <h3>Computer Science & Engineering</h3>
+                        <div class="course-meta">
+                            <span><strong>Duration:</strong> 4 Years</span>
+                            <span><strong>Intake:</strong> 120 Seats</span>
+                        </div>
+                        <p>Our CSE program equips students with cutting-edge knowledge in software development, artificial intelligence, data science, and cybersecurity. With industry-aligned curriculum and hands-on projects, graduates are prepared for top tech careers.</p>
+                        <a href="#" class="explore-link">Explore Program <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row course-row align-items-center flex-lg-row-reverse">
+                <div class="col-lg-6">
+                    <div class="course-image">
+                        <img src="https://via.placeholder.com/600x400/2d4a7c/ffffff?text=Mechanical+Engg" alt="Mechanical Engineering">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="course-text">
+                        <h3>Mechanical Engineering</h3>
+                        <div class="course-meta">
+                            <span><strong>Duration:</strong> 4 Years</span>
+                            <span><strong>Intake:</strong> 60 Seats</span>
+                        </div>
+                        <p>This program focuses on design, analysis, manufacturing, and maintenance of mechanical systems. Students gain practical experience through our advanced workshops and industry internships.</p>
+                        <a href="#" class="explore-link">Explore Program <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row course-row align-items-center">
+                <div class="col-lg-6">
+                    <div class="course-image">
+                        <img src="https://via.placeholder.com/600x400/e9b949/1a365d?text=Civil+Engineering" alt="Civil Engineering">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="course-text">
+                        <h3>Civil Engineering</h3>
+                        <div class="course-meta">
+                            <span><strong>Duration:</strong> 4 Years</span>
+                            <span><strong>Intake:</strong> 60 Seats</span>
+                        </div>
+                        <p>Our Civil Engineering program prepares students for careers in infrastructure development, construction management, and urban planning with a strong emphasis on sustainable practices.</p>
+                        <a href="#" class="explore-link">Explore Program <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Partners Section -->
+    <section class="partners-section">
+        <div class="container">
+            <h2 class="section-title">Our Recruiting Partners</h2>
+            <p class="partners-subtext">We are proud to be associated with leading companies who regularly recruit our students</p>
+            
+            <div class="partners-slider-wrapper">
+                <div class="partners-slider">
+                    <div class="partner-card">
+                        <img src="https://via.placeholder.com/220x100/ffffff/1a365d?text=TCS" alt="TCS">
+                    </div>
+                    <div class="partner-card">
+                        <img src="https://via.placeholder.com/220x100/ffffff/1a365d?text=Infosys" alt="Infosys">
+                    </div>
+                    <div class="partner-card">
+                        <img src="https://via.placeholder.com/220x100/ffffff/1a365d?text=Wipro" alt="Wipro">
+                    </div>
+                    <div class="partner-card">
+                        <img src="https://via.placeholder.com/220x100/ffffff/1a365d?text=Accenture" alt="Accenture">
+                    </div>
+                    <div class="partner-card">
+                        <img src="https://via.placeholder.com/220x100/ffffff/1a365d?text=Amazon" alt="Amazon">
+                    </div>
+                    <div class="partner-card">
+                        <img src="https://via.placeholder.com/220x100/ffffff/1a365d?text=Microsoft" alt="Microsoft">
+                    </div>
+                    <div class="partner-card">
+                        <img src="https://via.placeholder.com/220x100/ffffff/1a365d?text=TCS" alt="TCS">
+                    </div>
+                    <div class="partner-card">
+                        <img src="https://via.placeholder.com/220x100/ffffff/1a365d?text=Infosys" alt="Infosys">
+                    </div>
+                    <div class="partner-card">
+                        <img src="https://via.placeholder.com/220x100/ffffff/1a365d?text=Wipro" alt="Wipro">
+                    </div>
+                    <div class="partner-card">
+                        <img src="https://via.placeholder.com/220x100/ffffff/1a365d?text=Accenture" alt="Accenture">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title">What Our Students Say</h2>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">"The faculty at KEC goes above and beyond to ensure we understand concepts thoroughly. The hands-on projects prepared me well for my career at Amazon."</p>
+                            <div class="testimonial-author">
+                                <div class="author-image">
+                                    <img src="https://via.placeholder.com/60x60/1a365d/ffffff?text=A" alt="Alumni">
+                                </div>
+                                <div class="author-details">
+                                    <h4>Ankit Sharma</h4>
+                                    <p>Software Engineer, Amazon</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">"The campus infrastructure and labs are exceptional. I particularly benefited from the industry workshops that gave me practical exposure to real-world engineering challenges."</p>
+                            <div class="testimonial-author">
+                                <div class="author-image">
+                                    <img src="https://via.placeholder.com/60x60/2d4a7c/ffffff?text=P" alt="Alumni">
+                                </div>
+                                <div class="author-details">
+                                    <h4>Priya Singh</h4>
+                                    <p>Mechanical Engineer, Tata Motors</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">"KEC provided the perfect environment for holistic development. Beyond academics, the extracurricular activities helped me build confidence and leadership skills."</p>
+                            <div class="testimonial-author">
+                                <div class="author-image">
+                                    <img src="https://via.placeholder.com/60x60/e9b949/1a365d?text=R" alt="Alumni">
+                                </div>
+                                <div class="author-details">
+                                    <h4>Rahul Verma</h4>
+                                    <p>Civil Engineer, L&T Construction</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Our Location</h4>
+                            <p>KM-5, Mohan Nagar, Ghaziabad, Uttar Pradesh 201007</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Phone Number</h4>
+                            <p>+91 9876543210, +91 1234567890</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Email Address</h4>
+                            <p>info@kec.edu.in, admissions@kec.edu.in</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Working Hours</h4>
+                            <p>Monday - Saturday: 9:00 AM - 5:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="contact-form">
+                        <h3 class="mb-4">Send us a Message</h3>
+                        <form>
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" class="form-control" placeholder="Enter your name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" class="form-control" placeholder="Enter your email">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" class="form-control" placeholder="Enter subject">
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" class="form-control" placeholder="Enter your message"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-custom w-100">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-column">
+                        <h3>Krishna Engineering College</h3>
+                        <p>Approved by AICTE and affiliated to AKTU, Krishna Engineering College is committed to providing quality engineering education and shaping the future leaders of tomorrow.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="footer-column">
+                        <h3>Quick Links</h3>
+                        <div class="footer-links">
+                            <a href="#"><i class="fas fa-chevron-right"></i> Home</a>
+                            <a href="#"><i class="fas fa-chevron-right"></i> About Us</a>
+                            <a href="#"><i class="fas fa-chevron-right"></i> Academics</a>
+                            <a href="#"><i class="fas fa-chevron-right"></i> Admissions</a>
+                            <a href="#"><i class="fas fa-chevron-right"></i> Placements</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-column">
+                        <h3>Programs</h3>
+                        <div class="footer-links">
+                            <a href="#"><i class="fas fa-chevron-right"></i> Computer Science</a>
+                            <a href="#"><i class="fas fa-chevron-right"></i> Mechanical Engineering</a>
+                            <a href="#"><i class="fas fa-chevron-right"></i> Civil Engineering</a>
+                            <a href="#"><i class="fas fa-chevron-right"></i> Electronics & Communication</a>
+                            <a href="#"><i class="fas fa-chevron-right"></i> Electrical Engineering</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-column">
+                        <h3>Contact Info</h3>
+                        <div class="footer-links">
+                            <a href="#"><i class="fas fa-map-marker-alt"></i> KM-5, Mohan Nagar, Ghaziabad</a>
+                            <a href="tel:+919876543210"><i class="fas fa-phone-alt"></i> +91 9876543210</a>
+                            <a href="mailto:info@kec.edu.in"><i class="fas fa-envelope"></i> info@kec.edu.in</a>
+                            <a href="#"><i class="fas fa-clock"></i> Mon-Sat: 9:00AM - 5:00PM</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Krishna Engineering College. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Intersection Observer for course animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const courseRows = document.querySelectorAll('.course-row');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            courseRows.forEach(row => {
+                observer.observe(row);
+            });
+            
+            // Mobile dropdown submenu handling
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+            
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    if (window.innerWidth < 992) {
+                        e.preventDefault();
+                        const parent = this.parentElement;
+                        parent.classList.toggle('show');
+                        
+                        // Close other open dropdowns
+                        dropdownToggles.forEach(otherToggle => {
+                            if (otherToggle !== this) {
+                                const otherParent = otherToggle.parentElement;
+                                if (otherParent.classList.contains('show')) {
+                                    otherParent.classList.remove('show');
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth < 992) {
+                    if (!e.target.closest('.navbar-nav')) {
+                        dropdownToggles.forEach(toggle => {
+                            const parent = toggle.parentElement;
+                            if (parent.classList.contains('show')) {
+                                parent.classList.remove('show');
+                            }
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
